@@ -1,4 +1,4 @@
-import { Products } from "@/components";
+import { Products, Card } from "@/components";
 
 export default function Home() {
   return (

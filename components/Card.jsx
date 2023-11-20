@@ -1,12 +1,16 @@
-import { add } from "@/store/cartSlice";
+import { add, remove } from "@/store/cartSlice";
 import { useDispatch } from "react-redux";
 
-const Card = ({ products }) => {
+const Card = ({ products, type }) => {
   const dispatch = useDispatch();
 
   const addToCart = (item) => {
     // dispatch
     dispatch(add(item));
+  };
+
+  const removeFromCart = (id) => {
+    dispatch(remove(id));
   };
 
   return (
@@ -30,12 +34,23 @@ const Card = ({ products }) => {
             <p>$ {item.price}</p>
             <p>{item.category}</p>
             <div className="card-actions justify-end">
-              <button
-                className="btn btn-secondary btn-sm"
-                onClick={() => addToCart(item)}
-              >
-                Add to cart
-              </button>
+              {type == "Add" ? (
+                <button
+                  className="btn btn-secondary btn-sm"
+                  onClick={() => addToCart(item)}
+                >
+                  Add To Cart
+                </button>
+              ) : type == "Remove" ? (
+                <button
+                  className="btn btn-error text-white btn-sm"
+                  onClick={() => removeFromCart(item.id)}
+                >
+                  Remove
+                </button>
+              ) : (
+                <button className="btn btn-secondary btn-sm"></button>
+              )}
             </div>
           </div>
         </div>
